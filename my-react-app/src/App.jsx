@@ -1,9 +1,9 @@
 import { useState } from "react";
-
+import Sidebar from "./Components/Sidebar/Sidebar";
 function App() {
   return (
     <>
-      <p>به نام خدا</p>
+      <Sidebar></Sidebar>
     </>
   );
 }
