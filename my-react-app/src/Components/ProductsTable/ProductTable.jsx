@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import DetailsModal from "../DetailsModal/DetailsModal";
 import "./ProductTable.css";
 export default function ProductTable() {
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
 
   const cancel = () => {
     console.log("close");
-    setShowModal(false);
+    setShowDeleteModal(false);
   };
 
   const submit = () => {
     console.log("submit");
-    setShowModal(false);
+    setShowDeleteModal(false);
+  };
+
+  const closeDetailsModal = () => {
+    setShowDetailsModal(false);
   };
 
   return (
@@ -39,10 +45,18 @@ export default function ProductTable() {
             <td>۲۰ میلیون تومان</td>
             <td>۵</td>
             <td>
-              <button className="product-table-btn">جزئیات</button>
               <button
                 className="product-table-btn"
-                onClick={() => setShowModal(true)}
+                onBlur={() => setShowDetailsModal(false)}
+                onClick={() => {
+                  setShowDetailsModal(true);
+                }}
+              >
+                جزئیات
+              </button>
+              <button
+                className="product-table-btn"
+                onClick={() => setShowDeleteModal(true)}
               >
                 حذف
               </button>
@@ -51,8 +65,11 @@ export default function ProductTable() {
           </tr>
         </tbody>
       </table>
-      {showModal && (
+      {showDeleteModal && (
         <DeleteModal submitAction={submit} cancelAction={cancel}></DeleteModal>
+      )}
+      {showDetailsModal && (
+        <DetailsModal onHide={closeDetailsModal}></DetailsModal>
       )}
     </>
   );
