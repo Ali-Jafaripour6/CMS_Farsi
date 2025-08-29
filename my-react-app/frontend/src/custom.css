@@ -43,6 +43,12 @@ body {
   opacity: 1;
 }
 
+.cms-main {
+  margin-top: 60px;
+  padding: 20px;
+  border-radius: 25px;
+}
+
 .cms-table {
   margin-top: 20px;
   width: 100%;

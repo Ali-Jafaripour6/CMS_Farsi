@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./DetailsModal.css";
 
-export default function DetailsModal({ onHide }) {
+export default function DetailsModal({ onHide , children}) {
   useEffect(() => {
     const checkKey = (event) => {
       if (event.key == "Escape") {
@@ -19,22 +19,7 @@ export default function DetailsModal({ onHide }) {
   return (
     <div className="modal-parent active">
       <div className="details-modal">
-        <table className="cms-table">
-          <thead>
-            <tr>
-              <th>اسم محصول</th>
-              <th>قیمت</th>
-              <th>محبوبیت</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>ساعت</td>
-              <td>۱۰۰,۰۰۰,۰۰۰</td>
-              <td>۹۱</td>
-            </tr>
-          </tbody>
-        </table>
+        {children}
       </div>
     </div>
   );
