@@ -9,7 +9,7 @@ import "./ProductTable.css";
 import { useEffect } from "react";
 import { use } from "react";
 
-export default function ProductTable({allProducts , getAllProducts}) {
+export default function ProductTable({ allProducts, getAllProducts }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
@@ -23,8 +23,6 @@ export default function ProductTable({allProducts , getAllProducts}) {
   const [productNewPopularity, setProductNewPopularity] = useState("");
   const [productNewSale, setProductNewSale] = useState("");
   const [productNewColors, setProductNewColors] = useState("");
-
-
 
   const cancelDelete = () => {
     console.log("cancelDelete");
@@ -161,6 +159,7 @@ export default function ProductTable({allProducts , getAllProducts}) {
 
       {showDeleteModal && (
         <DeleteModal
+          title="آیا از حذف محصول مطمئن هستید؟"
           submitAction={submitDelete}
           cancelAction={cancelDelete}
         ></DeleteModal>

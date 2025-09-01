@@ -43,4 +43,18 @@ commentsRouter.put("/:commentID", (req, res) => {
   });
 });
 
+commentsRouter.post("/accept/:commentID", (req, res) => {
+  let commentID = req.params.commentID;
+
+  let acceptCommentQuery = `UPDATE Comments SET isAccept=true WHERE id = ${commentID}`;
+
+  SabzLearnShopDB.query(acceptCommentQuery, (err, result) => {
+    if (err) {
+      res.status(500).send({ error: "Error in accepting comment" });
+    } else {
+      res.send({ success: true, message: "Comment accepted" });
+    }
+  });
+});
+
 module.exports = commentsRouter;
