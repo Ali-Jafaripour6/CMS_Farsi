@@ -57,4 +57,18 @@ commentsRouter.post("/accept/:commentID", (req, res) => {
   });
 });
 
+commentsRouter.post("/reject/:commentID", (req, res) => {
+  let commentID = req.params.commentID;
+
+  let rejectCommentQuery = `UPDATE Comments SET isAccept=false WHERE id = ${commentID}`;
+
+  SabzLearnShopDB.query(rejectCommentQuery, (err, result) => {
+    if (err) {
+      res.status(500).send({ error: "Error in rejecting comment" });
+    } else {
+      res.send({ success: true, message: "Comment rejected" });
+    }
+  });
+});
+
 module.exports = commentsRouter;

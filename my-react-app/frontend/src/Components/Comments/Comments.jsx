@@ -13,6 +13,7 @@ export default function Comments() {
   const [msg, setMsg] = useState("");
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
+  const [isShowRejectModal, setIsShowRejectModal] = useState(false);
 
   useEffect(() => {
     getAllComment();
@@ -87,8 +88,23 @@ export default function Comments() {
       });
   };
 
+  const rejectComment = () => {
+    fetch(`http://localhost:8000/api/comments/reject/${commentID}`, {
+      method: "POST",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setIsShowRejectModal(false);
+        getAllComment();
+      });
+    setIsShowRejectModal(false);
+  };
+  const closeRejectComment = () => {
+    setIsShowRejectModal(false);
+  };
   return (
     <div className="cms-main">
+      <h1 className="cms-title">لیست کامنت‌ها</h1>
       {allComments.length ? (
         <table className="cms-table">
           <thead>
@@ -140,7 +156,7 @@ export default function Comments() {
                   </button>
                   <button className="comment-btn">پاسخ‌دهی</button>
 
-                  {comment.isAccept === 0 && (
+                  {comment.isAccept === 0 ? (
                     <button
                       className="comment-btn"
                       onClick={() => {
@@ -149,6 +165,16 @@ export default function Comments() {
                       }}
                     >
                       تایید
+                    </button>
+                  ) : (
+                    <button
+                      className="comment-btn"
+                      onClick={() => {
+                        setIsShowRejectModal(true);
+                        setCommentID(comment.id);
+                      }}
+                    >
+                      رد
                     </button>
                   )}
                 </td>
@@ -196,6 +222,13 @@ export default function Comments() {
           title="آیا از تایید مطمئن هستید؟"
           submitAction={acceptComment}
           cancelAction={closeAcceptComment}
+        ></DeleteModal>
+      )}
+      {isShowRejectModal && (
+        <DeleteModal
+          title="آیا از رد کامنت مطمئن هستید؟"
+          submitAction={rejectComment}
+          cancelAction={closeRejectComment}
         ></DeleteModal>
       )}
     </div>
